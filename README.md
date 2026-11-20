@@ -1,38 +1,134 @@
-# Coy · Discover tab
+# 💜 COY Discover
 
-A swipe-based Discover tab (plus a Matches view) built as a standalone Next.js app. The Home tab is intentionally blank.
+**Discover people. Build connections. Create meaningful relationships.**
 
-## Run it
+COY Discover is a modern dating and social discovery web application designed to help people discover new profiles, express interest, and build meaningful connections through an interactive swiping experience.
+
+## ✨ Features
+
+### 1. Home Dashboard
+- Welcome dashboard with a modern interface.
+- Quick access to profile discovery.
+- Explore application features.
+
+### 2. Discover Profiles
+- Browse user profiles.
+- Interactive swipe gestures.
+- Swipe right to Like.
+- Swipe left to Pass.
+- Keyboard navigation using arrow keys.
+
+### 3. Super Like ⭐
+- Dedicated Super Like button.
+- Interactive animation and visual feedback.
+- Special Super Like notification.
+
+*Note: Super Like currently uses the regular Like action in the backend.*
+
+### 4. Profile Details
+- View detailed profile information.
+- Display user biography.
+- Explore personal interests.
+- Like profiles directly from the details popup.
+
+### 5. Matches
+- View mutual matches.
+- Match notification popup.
+- Explore matched profiles.
+
+### 6. Modern UI
+- Dark-themed interface.
+- Purple gradient styling.
+- Responsive components.
+- Interactive buttons and animations.
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| Next.js | Frontend framework |
+| React.js | UI components |
+| JavaScript | Application logic |
+| CSS | Styling and animations |
+| Node.js API routes | Backend API integration |
+| MongoDB | Database, if configured in the project |
+
+## 📂 Project Structure
+
+```text
+coy-discover/
+│
+├── app/
+│   ├── components/
+│   │   └── Discover.js
+│   │
+│   ├── api/
+│   │   ├── feed/
+│   │   ├── swipe/
+│   │   ├── matches/
+│   │   └── reset/
+│   │
+│   ├── page.js
+│   └── globals.css
+│
+├── public/
+├── package.json
+├── package-lock.json
+└── README.md
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js
+- npm
+- Git
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/coy-discover.git
+```
+
+Navigate into the project:
+
+```bash
+cd coy-discover
+```
+
+Install dependencies:
 
 ```bash
 npm install
-npm run dev          # http://localhost:3000
-npm run test:api     # in another terminal, against the running server
 ```
 
-Data lives in `data/db.json` (auto-created and seeded on first request, git-ignored).
-`POST /api/reset` restores the seed — the empty state has a "Reset demo data" button for demos.
+Start the development server:
 
-## API
+```bash
+npm run dev
+```
 
-| Route | Behaviour |
-|---|---|
-| `GET /feed` | Profiles not yet swiped on, in a fixed shuffled order. Public fields only. |
-| `POST /swipe` `{ profileId, action: "like" \| "pass" }` | Records the swipe. Returns `{ match: false }` or `{ match: true, profile }`. `400` bad input, `404` unknown profile, `409` already swiped. |
-| `GET /matches` | Mutual matches, newest first. |
+Open your browser:
 
-(`/feed`, `/swipe`, `/matches` are rewrites of `/api/*`.)
+```text
+http://localhost:3000
+```
 
-## How the privacy promise is enforced
+## 🎯 Future Enhancements
 
-- **`likesMe` never leaves the server.** Profiles are serialised through a whitelist (`toPublic` in `lib/db.js`), so a new private field can't leak by accident.
-- **A match is decided server-side only.** The client learns `match: true/false` for the profile it just liked, nothing else. Liking someone who hasn't liked you looks the same as passing.
-- **Nothing hints at who liked you.** Ids are opaque and the feed order is shuffled once at seed time, so position and id patterns reveal nothing.
-- **"Never shown again" is a server rule.** Swipes are stored by profile id; `/feed` filters them out and a repeat `/swipe` returns `409`.
+- User authentication and registration.
+- Advanced profile filters.
+- Undo last swipe.
+- Real-time chat functionality.
+- Multiple profile photographs.
+- Profile verification.
+- Distance-based discovery.
+- Dedicated Super Like backend functionality.
 
-## Design notes and trade-offs
+## 👨‍💻 Project
 
-- Drag uses plain Pointer Events (no animation library): rotation and LIKE/PASS stamps follow the drag, then the card flies off. Buttons and ←/→ keys do the same on desktop.
-- Cards are removed only after the server confirms the swipe; on failure the card springs back with a message.
-- JSON file storage keeps setup to zero. Writes are atomic (temp file + rename). It is single-process only; swap `lib/db.js` for SQLite/Postgres to scale. Read-modify-write is safe here because each handler is synchronous.
-- Single hard-coded user, as the brief allows.
+**COY Discover – A Modern Dating & Social Discovery Application**
+
+Built with ❤️ using Next.js and React.
